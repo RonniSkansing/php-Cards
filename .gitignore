@@ -1,2 +1,6 @@
+# dirs
 report/
 vendor/
+
+#
+composer.lock
