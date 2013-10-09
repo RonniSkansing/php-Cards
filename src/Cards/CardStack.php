@@ -121,7 +121,7 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 	*/
 	public function addStackOnTop( CardStack $CardStack )
 	{
-		if( hasAvailableCard() === false ) 
+		if( $this->hasAvailableCard() === false ) 
 			return false;
 
 		while( $Card = $CardStack->getBottomCard())
