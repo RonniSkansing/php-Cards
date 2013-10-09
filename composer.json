@@ -1,12 +1,19 @@
 {
+    "name": "RonnieSkansing/php-Cards",
+    "description": "A small package for using / handling french playing Cards",
+    "keywords": ["Card","Cards","French Card"],
+    "homepage": "https://github.com/RonnieSkansing/php-Cards",
+    "license": "DBAD",
     "authors": [
         {
             "name": "Ronnie Skansing",
             "email": "rskansing@gmail.com",
-            "homepage": "https://github.com/RonnieSkansing",
             "role": "Developer"
         }
     ],
+    "require": {
+        "php": ">=5.4.0"
+    },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"   
     },
