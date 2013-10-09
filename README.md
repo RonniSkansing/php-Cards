@@ -64,6 +64,7 @@ $count = count($CardStack); // or $CardStack->count()
 
 
 **Manipulating CardStack**
+
 To get and *remove a Card* from the CardStack.
 ```php
 $Card = $CardStack->getTopCard();
@@ -100,6 +101,11 @@ $CardStack2->count(); // would return 8
 Shuffle the stack.
 ```php
 $CardStack->shuffle();
+```
+
+Reversing the Cardstack around
+```php
+$CardStack->reverse();
 ```
 
 Deleting a Card.
