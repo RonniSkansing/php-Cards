@@ -1,5 +1,5 @@
 {
-    "name": "ronnieskansing/php-Cards",
+    "name": "ronnieskansing/cards",
     "description": "A small package for using / handling french playing Cards",
     "keywords": ["Card","Cards","French Card"],
     "homepage": "https://github.com/RonnieSkansing/php-Cards",
