@@ -39,6 +39,12 @@ A CardStack can also be constructed without args.
 $CardStack = new CardStack; // empty CardStack
 ```
 
+A complete playing 52 deck can be created via a static method.
+```php
+$CardStack = CardStack::createDeck; // empty CardStack
+```
+
+
 **Iterating Card's in CardStack, viewing Card.**
 
 A CardStack can be used pretty much as a array.
