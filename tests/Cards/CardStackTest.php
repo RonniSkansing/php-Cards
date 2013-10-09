@@ -392,7 +392,6 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 
 	public function testAddStackOnTopReturnFalseIfNoCardsToAdd()
 	{
-
 		$this->assertFalse($this->CardStack->AddStackOnTop( new CardStack ));
 	}
 

@@ -1,6 +1,5 @@
 <?php
 namespace Cards;
-use \InvalidArgumentException as InvalidArgumentException;
 
 
 class Card {
@@ -36,7 +35,7 @@ class Card {
 	protected function isWithinValueRange($value)
 	{
 		if($value < self::MIN_VALUE OR $value > self::MAX_VALUE)
-			throw new InvalidArgumentException('The value must be higer than 0 and less than 14 (1-13) Given ' . $value);
+			throw new \InvalidArgumentException('The value must be higer than 0 and less than 14 (1-13) Given ' . $value);
 	}
 
 	/**
