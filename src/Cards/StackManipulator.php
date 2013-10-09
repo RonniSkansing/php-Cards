@@ -4,10 +4,10 @@ namespace Cards;
 
 Interface StackManipulator
 {
-	public function addOnTop( \Cards\Card $Card );
-	public function addToBottom( \Cards\Card $Card );
-	public function addStackOnTop( \Cards\CardStack $CardStack);
-	public function addStackToBottom( \Cards\CardStack $CardStack);
+	public function addOnTop( Card $Card );
+	public function addToBottom( Card $Card );
+	public function addStackOnTop( CardStack $CardStack);
+	public function addStackToBottom( CardStack $CardStack);
 	public function getTopCard();
 	public function getTopStack($quantity);
 	public function getBottomCard();

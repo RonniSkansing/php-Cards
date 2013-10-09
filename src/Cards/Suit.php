@@ -1,9 +1,8 @@
 <?php
 namespace Cards;
-
+use \InvalidArgumentException as InvalidArgumentException
 
 class Suit {
-
 	// valid suits.
 	const CLUB = 'Club';
 	const DIAMOND = 'Diamond';
@@ -16,7 +15,6 @@ class Suit {
 	*/
 	private $suit;
 
-
 	/**
 	*	Creates a Suit.
 	*
@@ -24,13 +22,11 @@ class Suit {
 	*/
 	public function __construct( $suit )
 	{
-
 		if( $this->isValidSuit($suit) === false) 
-			throw new \InvalidArgumentException('The suit is not a valid string.');
+			throw new InvalidArgumentException('The suit is not a valid string.');
 
 		$this->suit = $suit;
 	}
-
 
 	/**
 	*	Check if the Suit is a valid type.
@@ -40,7 +36,6 @@ class Suit {
 	*/
 	protected function isValidSuit($suit)
 	{
-
 		if(		$suit !== self::CLUB 
 			&& 	$suit !== self::DIAMOND
 			&&	$suit !== self::HEART 
@@ -50,7 +45,6 @@ class Suit {
 		return true;
 	}
 
-
 	/**
 	*	Gets the suit as a string
 	*
@@ -58,7 +52,6 @@ class Suit {
 	*/
 	public function getSuit()
 	{
-
 		return $this->suit;
 	}
 }

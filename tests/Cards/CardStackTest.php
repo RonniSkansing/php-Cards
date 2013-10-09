@@ -335,7 +335,6 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 
 	public function testReveseTurnsStackAround()
 	{
-
 		$Card = new Card( new Suit( Suit::HEART), 13);
 		$this->CardStack->addOnTop($Card);
 		$this->CardStack->reverse();
