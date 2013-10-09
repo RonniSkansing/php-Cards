@@ -6,6 +6,7 @@ use \Iterator as Iterator;
 use \Exception as Exception;
 use \InvalidArgumentException as InvalidArgumentException;
 
+
 class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 	/**
 	*	Current position in stack
@@ -120,8 +121,7 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 	*/
 	public function addStackOnTop( CardStack $CardStack )
 	{
-		$count = $CardStack->count();
-		if($count === 0) 
+		if( hasAvailableCard() === false ) 
 			return false;
 
 		while( $Card = $CardStack->getBottomCard())
@@ -138,9 +138,7 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 	*/
 	public function addStackToBottom( CardStack $CardStack )
 	{
-
-		$count = $CardStack->count();
-		if($count === 0) 
+		if( hasAvailableCard() === false ) 
 			return false;
 
 		while( $Card = $CardStack->getTopCard())
@@ -179,7 +177,7 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 	*/
 	public function getTopCard()
 	{
-		if($this->count() === 0)
+		if( hasAvailableCard() === false ) 
 			return null;
 
 		return array_shift($this->stack);

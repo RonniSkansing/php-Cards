@@ -1,6 +1,7 @@
 <?php
 namespace Cards;
-use \InvalidArgumentException as InvalidArgumentException
+use \InvalidArgumentException as InvalidArgumentException;
+
 
 class Card {
 	// min. value for a Card.

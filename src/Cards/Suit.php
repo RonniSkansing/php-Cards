@@ -1,6 +1,7 @@
 <?php
 namespace Cards;
-use \InvalidArgumentException as InvalidArgumentException
+use \InvalidArgumentException as InvalidArgumentException;
+
 
 class Suit {
 	// valid suits.
