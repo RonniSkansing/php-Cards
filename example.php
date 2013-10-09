@@ -4,7 +4,23 @@ use Cards\CardStack as CardStack;
 use Cards\Card as Card;
 use Cards\Suit as Suit;
 
-$x = new CardStack();
-var_dump(count($x));
-$x->addOnTop(new Card( new Suit( Suit::HEART), 9));
-var_dump(count($x));
+// Create some cards.
+$H9 = new Card( new Suit( Suit::HEART), 9);
+$H10 = new Card( new Suit( Suit::HEART), 10);
+
+// Create a CardDeck
+$smallCardStack = new CardStack([$H10]);
+
+// Add card on top of deck.
+$smallCardStack->addOnTop($H9);
+
+// create a 52 deck.
+$Deck = CardStack::createDeck();
+
+// shuffle...
+$Deck->shuffle();
+
+// add a stack on a stack
+$Deck->addStackOnTop($smallCardStack);
+
+echo count($smallCardStack); // empty now...

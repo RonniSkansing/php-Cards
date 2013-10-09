@@ -4,6 +4,23 @@ Small package when in need of french playing cards
 and stacks to manage them.
 
 
+Install with composer
+------------------------
+```json
+{
+	"require": {
+		"ronnieskansing/cards": "dev-master"
+	}
+}
+```
+
+Setup namespaces
+------------------------
+use Cards\Card;
+use Cards\CardStack;
+use Cards\Suit;
+
+
 Card
 ------------------------
 
