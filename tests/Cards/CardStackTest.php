@@ -1,5 +1,5 @@
 <?php
-use Cards\Card as Card;
+use Cards\FrenchCard as FrenchCard;
 use Cards\Suit as Suit;
 use Cards\CardStack as CardStack;
 
@@ -12,10 +12,9 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 
 	public function setUp() 
 	{
-
 		$cards = [];
 		for($i = 1; $i <= 13; ++$i)
-			$cards[] = new Card( new Suit(Suit::SPADE), $i);
+			$cards[] = new FrenchCard( new Suit(Suit::SPADE), $i);
 
 		$this->CardStack = new CardStack($cards);
 	}
@@ -23,17 +22,15 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 
 	private function getCardStack()
 	{
-
 		$cards = [];
 		for($i = 1; $i < 5; ++$i)
-			$cards[] = new Card( new Suit(Suit::CLUB), $i);		
+			$cards[] = new FrenchCard( new Suit(Suit::CLUB), $i);		
 
 		return new CardStack($cards);
 	}
 
 	public function testConstructWithNoArgs()
 	{
-
 		$CardStack = new CardStack;
 	}
 
@@ -43,7 +40,6 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 	*/
 	public function testConstructErrorIfFirstArgNotTypeArray()
 	{
-
 		$CardStack = new CardStack('string');
 	}
 
@@ -60,7 +56,6 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 
 	public function testCountableInterfaceIsImplemented()
 	{
-
 		$stack_count = $this->CardStack->count();
 		$count = count($this->CardStack);
 		$this->assertEquals($stack_count, $count);
@@ -69,10 +64,9 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 
 	public function testCountReturnsNumberOfCards()
 	{
-
 		$cards = [];
 		for($i = 1; $i <= 10; $i *= 2)
-			$cards[] = new Card( new Suit( Suit::SPADE), $i);
+			$cards[] = new FrenchCard( new Suit( Suit::SPADE), $i);
 		
 		$CardStack = new CardStack($cards);
 
@@ -82,7 +76,6 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 
 	public function testCountReturns0IfNoCardsOrNull()
 	{
-
 		$CardStack = new CardStack;
 		$this->assertSame(0, $CardStack->count());
 	}
@@ -93,66 +86,58 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 	*/
 	public function testAddOnTopErrorIfArgNotInstanceOfCard()
 	{
-
 		$this->CardStack->addOnTop('Heart');
 	}
 
 
 	public function testAddOnTopAddsACard() 
 	{
-
 		$count = $this->CardStack->count();
-
-		$this->CardStack->addOnTop( new Card( new Suit( Suit::SPADE), 13) );
+		$this->CardStack->addOnTop( new FrenchCard( new Suit( Suit::SPADE), 13) );
 		$this->assertGreaterThan($count, $this->CardStack->count());
 	}
 
 
 	public function testAddOnTopAddsToTheTop()
 	{
-
-		$Card = new Card( new Suit(Suit::SPADE), 6);
+		$Card = new FrenchCard( new Suit(Suit::SPADE), 6);
 		$this->CardStack->addOnTop($Card);
-		$this->AssertSame($Card, $this->CardStack->getTopCard());
+		$this->AssertSame($Card, $this->CardStack->getTop());
 	}
 
 
-	public function testGetTopCardReturnNullIfNoCardLeft()
+	public function testgetTopReturnNullIfNoCardLeft()
 	{
-
 		$CardStack = new CardStack;
-		$this->assertNull($CardStack->getTopCard());
+		$this->assertNull($CardStack->getTop());
 	}
 
 
-	public function testGetTopCardReturnInstanceOfCard()
+	public function testgetTopReturnInstanceOfCard()
 	{
-
-		$Card = $this->CardStack->getTopCard();
+		$Card = $this->CardStack->getTop();
 		$this->assertInstanceOf('\Cards\Card', $Card);
 	}
 
 
-	public function testGetTopCardReindexStack()
+	public function testgetTopReindexStack()
 	{
 		$Card = $this->CardStack[1];
-		$Card2 = $this->CardStack->getTopCard();
+		$Card2 = $this->CardStack->getTop();
 		$this->assertEquals($Card->getValue(), $this->CardStack[0]->getValue());
 	}
 
 
-	public function testGetBottomCardReturnNullIfNoCardLeft()
+	public function testgetBottomReturnNullIfNoCardLeft()
 	{
-
 		$CardStack = new CardStack;
-		$this->assertNull($CardStack->getTopCard());
+		$this->assertNull($CardStack->getTop());
 	}
 
 
-	public function getBottomCardReturnInstanceOfCard()
+	public function getBottomReturnInstanceOfCard()
 	{
-
-		$Card = $this->CardStack->getBottomCard();
+		$Card = $this->CardStack->getBottom();
 		$this->assertInstanceOf('\Cards\Card', $Card);
 	}
 
@@ -162,16 +147,14 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 	*/
 	public function testAddToBottomErrorIfArgNotInstaceOfCard()
 	{
-
 		$this->CardStack->addToBottom('Heart');
 	}
 
 
 	public function testAddToBottomAddsCard()
 	{
-
 		$count = $this->CardStack->count();
-		$this->CardStack->addToBottom( new Card( new Suit( Suit::HEART), 11));
+		$this->CardStack->addToBottom( new FrenchCard( new Suit( Suit::HEART), 11));
 		$this->assertGreaterThan($count, $this->CardStack->count());
 	}
 
@@ -179,9 +162,9 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 	public function testAddToBottomAddsToTheBottom()
 	{
 
-		$Card = new Card( new Suit( Suit::CLUB), 2);
+		$Card = new FrenchCard( new Suit( Suit::CLUB), 2);
 		$this->CardStack->AddToBottom($Card);
-		$this->assertSame( $Card, $this->CardStack->getBottomCard());
+		$this->assertSame( $Card, $this->CardStack->getBottom());
 	}
 
 
@@ -190,7 +173,6 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 	*/
 	public function testGetTopStackThrowsExceptionIfArgNotInt()
 	{
-
 		$this->CardStack->getTopStack('string');
 	}
 
@@ -200,14 +182,12 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 	*/
 	public function testGetTopStackThrowsExceptionIfArgNotPositiveNumber()
 	{
-
 		$this->CardStack->getTopStack(0);
 	}
 
 
 	public function testGetTopStackReturnInstanceOfCardStackIfNoCardsLeft()
 	{
-
 		$CardStack = new CardStack;
 		$emptyCardStack = $CardStack->getTopStack(10);
 
@@ -217,21 +197,18 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetTopStackReturnInstaceOfCardStack()
 	{
-
 		$this->assertInstanceOf('Cards\CardStack', $this->CardStack->getTopStack(5));
 	}
 
 
 	public function testGetTopStackReturnCorrectNumberOfCards()
 	{
-
 		$this->assertSame(5, $this->CardStack->getTopStack(5)->count());
 	}
 
 
 	public function testGetTopStackRemovesCards()
 	{
-
 		$number_of_cards = 5;
 		$count = $this->CardStack->count();
 		$this->CardStack->getTopStack($number_of_cards);
@@ -245,7 +222,7 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 		$number = 5; 
 		$cards = [];
 		for($i = 1; $i <= $number; ++$i)
-			$cards[] = new Card( new Suit( Suit::SPADE), $i);
+			$cards[] = new FrenchCard( new Suit( Suit::SPADE), $i);
 
 		$CardStack = new CardStack($cards);
 		$myCardStack = $CardStack->getTopStack(5);
@@ -258,7 +235,6 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 	*/
 	public function testGetBottomStackThrowsExceptionIfArgNotInt()
 	{
-
 		$this->CardStack->getBottomStack('string');
 	}
 
@@ -268,14 +244,12 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 	*/
 	public function testGetBottomStackThrowsExceptionIfArgNotPositiveNumber()
 	{
-
 		$this->CardStack->getBottomStack(0);
 	}
 
 
 	public function testGetBottomStackReturnInstanceOfCardStackIfNoCardsLeft()
 	{
-
 		$CardStack = new CardStack;
 		$emptyCardStack = $CardStack->getBottomStack(10);
 
@@ -285,21 +259,18 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetBottomStackReturnInstaceOfCardStack()
 	{
-
 		$this->assertInstanceOf('Cards\CardStack', $this->CardStack->getBottomStack(5));
 	}
 
 
 	public function testGetBottomStackReturnCorrectNumberOfCards()
 	{
-
 		$this->assertSame(5, $this->CardStack->getBottomStack(5)->count());
 	}
 
 
 	public function testGetBottomStackRemovesCards()
 	{
-
 		$number_of_cards = 5;
 		$count = $this->CardStack->count();
 		$this->CardStack->getBottomStack($number_of_cards);
@@ -309,8 +280,15 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 
 	public function testShuffleReturnFalseIfNoCardLeft()
 	{
-
 		$CardStack = new CardStack;
+		$is_shuffled = $CardStack->shuffle();
+		$this->assertFalse($is_shuffled);
+	}
+
+
+	public function testShuffleReturnFalseIf1CardLeft()
+	{
+		$CardStack = new CardStack( [ new FrenchCard( new Suit( Suit::HEART), 13) ]);
 		$is_shuffled = $CardStack->shuffle();
 		$this->assertFalse($is_shuffled);
 	}
@@ -318,15 +296,19 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 
 	public function testShuffleReturnTrueAfterShuffling()
 	{
-
 		$this->assertTrue($this->CardStack->shuffle());
-
 	}
 
 
+	public function testReverseReturnsFalseIf1CardLeft()
+	{
+		$CardStack = new CardStack( [ new FrenchCard( new Suit( Suit::HEART), 13) ]) ;
+		$false = $CardStack->reverse();
+		$this->assertFalse($false);
+	}
+
 	public function testReverseReturnsFalseIfNoCardLeft()
 	{
-
 		$CardStack = new CardStack;
 		$false = $CardStack->shuffle();
 		$this->assertFalse($false);
@@ -335,10 +317,10 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 
 	public function testReveseTurnsStackAround()
 	{
-		$Card = new Card( new Suit( Suit::HEART), 13);
+		$Card = new FrenchCard( new Suit( Suit::HEART), 13);
 		$this->CardStack->addOnTop($Card);
 		$this->CardStack->reverse();
-		$sameCard = $this->CardStack->getBottomCard();
+		$sameCard = $this->CardStack->getBottom();
 		$this->assertSame($Card->getValue(), $sameCard->getValue());
 		$this->assertSame($Card->getSuit(), $sameCard->getSuit());
 	}
@@ -346,7 +328,6 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 
 	public function testSplitReturnInstaceOfCardStack()
 	{
-
 		$CardStack = $this->CardStack->split();
 		$this->assertInstanceOf('Cards\CardStack', $CardStack);
 	}
@@ -354,7 +335,6 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 
 	public function testSplitRemovesCards()
 	{
-
 		$count = $this->CardStack->count();
 		$CardStack = $this->CardStack->split(); 
 		$this->assertEquals($count, ( $CardStack->count() + $this->CardStack->count()));
@@ -363,7 +343,6 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 
 	public function testSplitTakesTheLesserOfHalfOfCards()
 	{
-
 		$count = $this->CardStack->count(); // 13
 		$lesser_half = ( floor($count / 2) ) + ( $count % 2);
 		$CardStack = $this->CardStack->split();
@@ -376,16 +355,14 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 	*/
 	public function testAddStackOnTopErrorIfInstanceOfNotCardStack()
 	{
-
 		$this->CardStack->AddStackOnTop('string');
 	}
 
 
 	public function testAddStackOnTopReturnTrueOnSucces()
 	{
-
 		$this->assertTrue(	
-			$this->CardStack->AddStackOnTop( new CardStack( [ new Card( new Suit( Suit::HEART), 9)]))
+			$this->CardStack->AddStackOnTop( new CardStack( [ new FrenchCard( new Suit( Suit::HEART), 9)]))
 		);
 	}
 
@@ -398,10 +375,9 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 
 	public function testAddStackOnTopEmptiesTheStack()
 	{
-
 		$cards = [];
 		for($i = 1; $i < 5; ++$i)
-			$cards[] = new Card( new Suit(Suit::CLUB), $i);
+			$cards[] = new FrenchCard( new Suit(Suit::CLUB), $i);
 
 		$CardStack = new CardStack($cards);
 		$this->CardStack->AddStackOnTop($CardStack);
@@ -411,10 +387,9 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 
 	public function testAddStackOnTopAddsCards()
 	{
-
 		$cards = [];
 		for($i = 1; $i < 5; ++$i)
-			$cards[] = new Card( new Suit(Suit::CLUB), $i);		
+			$cards[] = new FrenchCard( new Suit(Suit::CLUB), $i);		
 
 		$CardStack = new CardStack($cards);
 		$added = $CardStack->count() + $this->CardStack->count();
@@ -425,16 +400,15 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 
 	public function testAddStackOnTopAddsToTop()
 	{
-
 		$cards = [];
 		$value_top_card = 1;
 		for($i = $value_top_card; $i < 5; ++$i)
-			$cards[] = new Card( new Suit(Suit::CLUB), $i);		
+			$cards[] = new FrenchCard( new Suit(Suit::CLUB), $i);		
 
 		$CardStack = new CardStack($cards);
 		$added = $CardStack->count() + $this->CardStack->count();
 		$this->CardStack->AddStackOnTop($CardStack);
-		$this->assertEquals($value_top_card, $this->CardStack->getTopCard()->getValue());
+		$this->assertEquals($value_top_card, $this->CardStack->getTop()->getValue());
 	}
 	
 	//
@@ -443,33 +417,29 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 	*/
 	public function testAddStackToBottomErrorIfInstanceOfNotCardStack()
 	{
-
 		$this->CardStack->AddStackToBottom('string');
 	}
 
 
 	public function testAddStackToBottomReturnTrueOnSucces()
 	{
-
 		$this->assertTrue(	
-			$this->CardStack->AddStackToBottom( new CardStack( [ new Card( new Suit( Suit::HEART), 9)]))
+			$this->CardStack->AddStackToBottom( new CardStack( [ new FrenchCard( new Suit( Suit::HEART), 9)]))
 		);
 	}
 
 
 	public function testAddStackToBottomReturnFalseIfNoCardsToAdd()
 	{
-
 		$this->assertFalse($this->CardStack->AddStackToBottom( new CardStack ));
 	}
 
 
 	public function testAddStackToBottomEmptiesTheStack()
 	{
-
 		$cards = [];
 		for($i = 1; $i < 5; ++$i)
-			$cards[] = new Card( new Suit(Suit::CLUB), $i);
+			$cards[] = new FrenchCard( new Suit(Suit::CLUB), $i);
 
 		$CardStack = new CardStack($cards);
 		$this->CardStack->AddStackToBottom($CardStack);
@@ -479,10 +449,9 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 
 	public function testAddStackToBottomAddsCards()
 	{
-
 		$cards = [];
 		for($i = 1; $i < 5; ++$i)
-			$cards[] = new Card( new Suit(Suit::CLUB), $i);		
+			$cards[] = new FrenchCard( new Suit(Suit::CLUB), $i);		
 
 		$CardStack = new CardStack($cards);
 		$added = $CardStack->count() + $this->CardStack->count();
@@ -493,24 +462,22 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 
 	public function testAddStackToBottomAddsToBottom()
 	{
-
 		$cards = [];
 		for($i = 1; $i < 5; ++$i)
-			$cards[] = new Card( new Suit(Suit::CLUB), $i);		
+			$cards[] = new FrenchCard( new Suit(Suit::CLUB), $i);		
 
 		$bottom_card_value = $i - 1;
 
 		$CardStack = new CardStack($cards);
 		$added = $CardStack->count() + $this->CardStack->count();
 		$this->CardStack->AddStackToBottom($CardStack);
-		$this->assertEquals($bottom_card_value, $this->CardStack->getBottomCard()->getValue());
+		$this->assertEquals($bottom_card_value, $this->CardStack->getBottom()->getValue());
 	}
 
 
 	// iterator interface
 	public function testCurrentReturnsInstanceOfCard()
 	{
-
 		$this->assertInstanceOf('Cards\Card',$this->CardStack->current());
 	}
 
@@ -518,10 +485,9 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 	// iterator interface
 	public function testCurrentReturnCurrentCard()
 	{
-
 		$cards = [];
 		for($i = 1; $i < 5; ++$i)
-			$cards[] = new Card( new Suit(Suit::CLUB), $i);		
+			$cards[] = new FrenchCard( new Suit(Suit::CLUB), $i);		
 
 		$CardStack = new CardStack($cards);
 		$this->assertEquals(1, $CardStack->current()->getValue());
@@ -530,7 +496,6 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 
 	public function testCurrentIs0ByDefault()
 	{
-
 		$CardStack = new CardStack;
 		$this->assertEquals(0, $CardStack->Current());
 	}
@@ -538,7 +503,6 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 	// iterator interface
 	public function testNextReturnInstaceOfCard()
 	{
-
 		$this->assertInstanceOf('Cards\Card', $this->CardStack->current());
 	}
 
@@ -546,10 +510,9 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 	// iterator interface
 	public function testNextMovesToNextCard()
 	{
-
 		$cards = [];
 		for($i = 1; $i < 5; ++$i)
-			$cards[] = new Card( new Suit(Suit::CLUB), $i);		
+			$cards[] = new FrenchCard( new Suit(Suit::CLUB), $i);		
 
 		$CardStack = new CardStack($cards);
 		$CardStack->next();
@@ -560,10 +523,9 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 	// iterator interface
 	public function testRewindSetsPositionToTop() 
 	{
-	
 		$cards = [];
 		for($i = 1; $i < 5; ++$i)
-			$cards[] = new Card( new Suit(Suit::CLUB), $i);				
+			$cards[] = new FrenchCard( new Suit(Suit::CLUB), $i);				
 
 		$CardStack = new CardStack($cards);
 		$CardStack->next();
@@ -577,7 +539,6 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 	// iterator interface
 	public function testKeyReturnInt()
 	{
-
 		$this->assertInternalType('int', $this->CardStack->key());
 	}
 
@@ -585,14 +546,12 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 	// iterator interface
 	public function testValidReturnBool()
 	{
-
 		$this->assertInternalType('bool', $this->CardStack->valid());
 	}
 
 
 	public function testValidReturnFalseIfInvalid()
 	{
-
 		$CardStack = new CardStack;
 		$this->assertFalse($CardStack->valid());
 	}
@@ -600,18 +559,16 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 
 	public function testValidReturnTrueIfValid()
 	{
-
-		$CardStack = new CardStack( [new Card( new Suit( Suit::SPADE), 13)] );
+		$CardStack = new CardStack( [new FrenchCard( new Suit( Suit::SPADE), 13)] );
 		$this->assertTrue($CardStack->valid());
 	}
 
 
 	public function testImplementsIterator()
 	{
-
 		$cards = [];
 		for($i = 1; $i < 5; ++$i)
-			$cards[] = new Card( new Suit(Suit::CLUB), $i);
+			$cards[] = new FrenchCard( new Suit(Suit::CLUB), $i);
 
 		$CardStack = new CardStack($cards);
 		$count = $CardStack->count();
@@ -625,22 +582,19 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 	// arrayaccess interface
 	public function testOffsetExistsReturnBool()
 	{
-
 		$this->assertInternalType('bool', $this->CardStack->offsetExists(1) );
 	}
 
 
 	public function testOffsetExistsReturnTrueIfExists()
 	{
-
-		$CardStack = new CardStack( [new Card( new Suit( Suit::SPADE), 13)] );
+		$CardStack = new CardStack( [new FrenchCard( new Suit( Suit::SPADE), 13)] );
 		$this->assertTrue($CardStack->offsetExists(0));
 	}
 
 
 	public function testOffsetExistsReturnFalseIfNotExists()
 	{
-
 		$CardStack = new CardStack;
 		$this->assertFalse($CardStack->offsetExists(0));
 	}
@@ -648,15 +602,13 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 
 	public function testOffsetGetReturnInstaceOfCard()
 	{
-
-		$CardStack = new CardStack( [new Card( new Suit( Suit::SPADE), 13)] );
+		$CardStack = new CardStack( [new FrenchCard( new Suit( Suit::SPADE), 13)] );
 		$this->assertInstanceOf('Cards\Card', $CardStack->offsetGet(0));
 	}
 
 
 	public function testOffsetGetReturnNullIfInvalid()
 	{
-
 		$CardStack = new CardStack;
 		$this->assertNull($CardStack->offsetGet(0));
 	}
@@ -677,15 +629,13 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 	*/
 	public function testOffsetSetThrowsExceptionIfUsed()
 	{
-
 		$this->CardStack->offsetSet(null, null);
 	}
 
 
 	public function testOffsetUnsetRemovesCard()
 	{
-
-		$CardStack = new CardStack( [new Card( new Suit( Suit::SPADE), 13)] );
+		$CardStack = new CardStack( [new FrenchCard( new Suit( Suit::SPADE), 13)] );
 		$CardStack->offsetUnset(0);
 		$this->assertNull($CardStack->offsetGet(0)); // nomore cards
 	}
@@ -695,7 +645,7 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 	{
 		$cards = [];
 		for($i = 1; $i < 5; ++$i)
-			$cards[] = new Card( new Suit(Suit::CLUB), $i);
+			$cards[] = new FrenchCard( new Suit(Suit::CLUB), $i);
 
 		$CardStack = new CardStack($cards);
 
@@ -706,10 +656,9 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 
 	public function testImplementsArrayAcces()
 	{
-
 		$cards = [];
 		for($i = 1; $i < 5; ++$i)
-			$cards[] = new Card( new Suit(Suit::CLUB), $i);
+			$cards[] = new FrenchCard( new Suit(Suit::CLUB), $i);
 
 		$CardStack = new CardStack($cards);
 		$this->assertEquals(2, $CardStack[1]->getValue());
@@ -717,7 +666,6 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 
 	public function testStaticGenerateCompleteDeckReturns52Cards()
 	{
-
 		$CardStack = CardStack::createDeck();
 		$this->assertEquals(52, $CardStack->count());
 	}

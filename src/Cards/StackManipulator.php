@@ -2,15 +2,15 @@
 namespace Cards;
 
 
-Interface StackManipulator
+Interface StackManipulator extends \ArrayAccess, \Countable, \Iterator
 {
 	public function addOnTop( Card $Card );
 	public function addToBottom( Card $Card );
-	public function addStackOnTop( CardStack $CardStack);
-	public function addStackToBottom( CardStack $CardStack);
-	public function getTopCard();
+	public function addStackOnTop( StackManipulator $CardStack);
+	public function addStackToBottom( StackManipulator $CardStack);
+	public function getTop();
 	public function getTopStack($quantity);
-	public function getBottomCard();
+	public function getBottom();
 	public function getBottomStack($quantity);
 	public function shuffle();
 	public function reverse();

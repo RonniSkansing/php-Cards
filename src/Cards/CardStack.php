@@ -1,11 +1,9 @@
 <?php
 namespace Cards;
-use \ArrayAccess as ArrayAccess;
-use \Countable as Countable;
-use \Iterator as Iterator;
 
 
-class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
+class CardStack implements StackManipulator {
+
 	/**
 	*	Current position in stack
 	*/
@@ -15,6 +13,7 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 	*	Array of Card
 	*/
 	protected $stack;
+
 
 	/**
 	*	Takes an array of Card. First Card is top of stack
@@ -32,6 +31,7 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 		$this->stack = $cards;
 	}
 
+
 	/**
 	*	Returns an instance of CardStack with a complete 52 Deck (French deck).
 	*
@@ -44,10 +44,11 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 		$cards = [];
 		foreach( $suits as $suit )
 			for($i = 1; $i <= 13; ++$i)
-				$cards[] = new Card( new Suit($suit), $i);
+				$cards[] = new FrenchCard( new Suit($suit), $i);
 
 		return new CardStack($cards);
 	}
+
 
 	/**
 	*	Check if there is a available card
@@ -58,6 +59,7 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 	{
 		return ($this->count() !== 0);
 	}
+
 
 	/**
 	*	Validates that each element is instance of Card
@@ -73,6 +75,7 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 				throw new \InvalidArgumentException(	'Each element of the array must be an instance of Card. Given ' 
 													. gettype($Card));
 	}
+
 
 	/**
 	* 	Validates that the quantity is a valid number
@@ -91,6 +94,7 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 			throw new \InvalidArgumentException('Quantity must be greater than 0');
 	}
 
+
 	/**
 	*	Adds a card to the top
 	*
@@ -101,6 +105,7 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 	{
 		array_unshift($this->stack, $Card);
 	}
+
 
 	/**
 	*	Adds a card to the bottom
@@ -113,22 +118,24 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 		$this->stack[] = $Card;
 	}
 
+
 	/**
 	*	Adds a CardStack on top. Removes the Cards from the CardStack given.
 	*
 	*	@param	CardStack
 	*	@return bool
 	*/
-	public function addStackOnTop( CardStack $CardStack )
+	public function addStackOnTop( StackManipulator $CardStack )
 	{	
 		if( count($CardStack) === 0 ) 
 			return false;
 
-		while( $Card = $CardStack->getBottomCard())
+		while( $Card = $CardStack->getBottom())
 			$this->addOnTop($Card);
 
 		return true;
 	}
+
 
 	/**
 	*	Adds CardStack to the bottom of the deck. Removes the Cards from the CardStack given.
@@ -136,16 +143,17 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 	*	@param	CardStack
 	*	@return bool
 	*/
-	public function addStackToBottom( CardStack $CardStack )
+	public function addStackToBottom( StackManipulator $CardStack )
 	{
 		if( count($CardStack) === 0 ) 
 			return false;
 
-		while( $Card = $CardStack->getTopCard())
+		while( $Card = $CardStack->getTop())
 			$this->addToBottom($Card);
 
 		return true;
 	}
+
 
 	/**
 	*	Returns the number of cards in stack
@@ -156,6 +164,7 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 	{
 		return count($this->stack);
 	}
+
 
 	/**
 	*	Returns the current card.
@@ -170,18 +179,20 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 		return $this->stack[$this->position];
 	}
 
+
 	/**
 	*	Returns and removes the top card
 	*
 	*	@return Card|null 
 	*/
-	public function getTopCard()
+	public function getTop()
 	{
 		if( $this->hasAvailableCard() === false ) 
 			return null;
 
 		return array_shift($this->stack);
 	}
+
 
 	/**
 	*	Returns CardStack with quantity of cards and removes from top
@@ -192,7 +203,6 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 	*/
 	public function getTopStack( $quantity )
 	{
-
 		// throws \InvalidArgumentException
 		$this->validateQuantity($quantity);
 		
@@ -200,24 +210,26 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 			return new CardStack;
 
 		$cards = [];
-		for($i = 1; $i <= $quantity && ( $Card = $this->getTopCard() ) !== null; ++$i) 
+		for($i = 1; $i <= $quantity && ( $Card = $this->getTop() ) !== null; ++$i) 
 			$cards[] = $Card; 
 
 		return new CardStack($cards);
 	}
+
 
 	/**
 	*	Return and remove the bottom card
 	*
 	*	@return Card|null
 	*/
-	public function getBottomCard()
+	public function getBottom()
 	{
 		if($this->hasAvailableCard() === false)
 			return null;
 
 		return array_pop($this->stack);
 	}
+
 
 	/**
 	*	Returns CardStack with quantity of cards and removes from the bottom.
@@ -235,11 +247,12 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 			return new CardStack;
 
 		$cards = [];
-		for($i = 1; $i <= $quantity && ( $Card = $this->getBottomCard() ) !== null; ++$i) 
+		for($i = 1; $i <= $quantity && ( $Card = $this->getBottom() ) !== null; ++$i) 
 			$cards[] = $Card; 
 
 		return new CardStack($cards);
 	}
+
 
 	/**
 	*	Returns the value of the current position.
@@ -262,6 +275,7 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 		++$this->position;
 	}
 
+
 	/**
 	*	Returns a Card in a specific offset
 	*
@@ -276,6 +290,7 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 		return $this->stack[$offset];
 	}
 
+
 	/**
 	*	Checks if a specific offset exists
 	* 
@@ -286,6 +301,7 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 	{
 		return isset($this->stack[$offset]);
 	}
+
 
 	/**
 	*	Throws Exception if used.
@@ -299,6 +315,7 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 	{
 		throw new \Exception('The Cards are readonly.');
 	}
+
 
 	/**
 	*	Removes a specific index from the stack
@@ -318,6 +335,7 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 			$this->stack = array_values($this->stack);
 	}
 
+
 	/**
 	*	Reverses the stack of card.
 	*
@@ -325,12 +343,13 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 	*/
 	public function reverse()
 	{
-		if($this->hasAvailableCard() === false)
+		if($this->count() <= 1)
 			return false;		
 
 		$this->stack = array_reverse($this->stack);
 		return true;
 	}
+
 
 	/**
 	*	Shuffles the cards
@@ -339,13 +358,13 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 	*/
 	public function shuffle()
 	{
-		if($this->hasAvailableCard() === false)
-			return false;
+		if($this->count() <= 1)
+			return false;		
 
 		shuffle($this->stack);
-
 		return true;
 	}
+
 
 	/**
 	*	Splits the stack
@@ -361,11 +380,12 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 		$count = $this->count();
 		$larger_half = ( floor($count / 2) ) + ( $count % 2);
 		$cards = [];
-		for($i = 1; $i <= $larger_half && ( $Card = $this->getTopCard() ) !== null; ++$i) 
+		for($i = 1; $i <= $larger_half && ( $Card = $this->getTop() ) !== null; ++$i) 
 			$cards[] = $Card; 		
 
 		return new CardStack($cards);
 	}
+
 
 	/**
 	*	Rewinds the stack
@@ -377,6 +397,7 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 		$this->position = 0;
 	}
 
+
 	/** 
 	*	Checks if the current position is valid
 	*
@@ -384,9 +405,6 @@ class CardStack implements StackManipulator, ArrayAccess, Countable, Iterator{
 	*/
 	public function valid()
 	{
-		if(isset($this->stack[$this->position]) === false)
-			return false;
-
-		return true;
+		return isset($this->stack[$this->position]);
 	}
 }
