@@ -4,8 +4,8 @@ namespace Cards;
 
 Interface StackManipulator extends \ArrayAccess, \Countable, \Iterator
 {
-	public function addOnTop( Card $Card );
-	public function addToBottom( Card $Card );
+	public function addOnTop( FrenchCard $Card );
+	public function addToBottom( FrenchCard $Card );
 	public function addStackOnTop( StackManipulator $CardStack);
 	public function addStackToBottom( StackManipulator $CardStack);
 	public function getTop();

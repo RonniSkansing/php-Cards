@@ -106,17 +106,17 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 	}
 
 
-	public function testgetTopReturnNullIfNoCardLeft()
+	public function testGetTopReturnNullIfNoCardLeft()
 	{
 		$CardStack = new CardStack;
 		$this->assertNull($CardStack->getTop());
 	}
 
 
-	public function testgetTopReturnInstanceOfCard()
+	public function testGetTopReturnInstanceOfCard()
 	{
 		$Card = $this->CardStack->getTop();
-		$this->assertInstanceOf('\Cards\Card', $Card);
+		$this->assertInstanceOf('Cards\FrenchCard', $Card);
 	}
 
 
@@ -138,7 +138,7 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 	public function getBottomReturnInstanceOfCard()
 	{
 		$Card = $this->CardStack->getBottom();
-		$this->assertInstanceOf('\Cards\Card', $Card);
+		$this->assertInstanceOf('\Cards\FrenchCard', $Card);
 	}
 
 
@@ -478,7 +478,7 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 	// iterator interface
 	public function testCurrentReturnsInstanceOfCard()
 	{
-		$this->assertInstanceOf('Cards\Card',$this->CardStack->current());
+		$this->assertInstanceOf('Cards\FrenchCard',$this->CardStack->current());
 	}
 
 
@@ -503,7 +503,7 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 	// iterator interface
 	public function testNextReturnInstaceOfCard()
 	{
-		$this->assertInstanceOf('Cards\Card', $this->CardStack->current());
+		$this->assertInstanceOf('Cards\FrenchCard', $this->CardStack->current());
 	}
 
 
@@ -603,7 +603,7 @@ class CardStackTest extends PHPUnit_Framework_TestCase {
 	public function testOffsetGetReturnInstaceOfCard()
 	{
 		$CardStack = new CardStack( [new FrenchCard( new Suit( Suit::SPADE), 13)] );
-		$this->assertInstanceOf('Cards\Card', $CardStack->offsetGet(0));
+		$this->assertInstanceOf('Cards\FrenchCard', $CardStack->offsetGet(0));
 	}
 
 

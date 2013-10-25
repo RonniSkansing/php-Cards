@@ -1,7 +1,7 @@
 <?php
 require 'vendor/autoload.php';
 use Cards\CardStack as CardStack;
-use Cards\Card as Card;
+use Cards\FrenchCard as Card;
 use Cards\Suit as Suit;
 
 // Create some cards.

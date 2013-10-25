@@ -71,7 +71,7 @@ class CardStack implements StackManipulator {
 	protected function validateIsArrayOfCards( $cards )
 	{
 		foreach($cards as $Card) 
-			if( $Card instanceof Card === false )
+			if( $Card instanceof FrenchCard === false )
 				throw new \InvalidArgumentException(	'Each element of the array must be an instance of Card. Given ' 
 													. gettype($Card));
 	}
@@ -101,7 +101,7 @@ class CardStack implements StackManipulator {
 	*	@param Card $Card
 	*	@return void
 	*/
-	public function addOnTop( Card $Card )
+	public function addOnTop( FrenchCard $Card )
 	{
 		array_unshift($this->stack, $Card);
 	}
@@ -113,7 +113,7 @@ class CardStack implements StackManipulator {
 	* 	@param Card $Card
 	*	@return void
 	*/
-	public function addToBottom( Card $Card )
+	public function addToBottom( FrenchCard $Card )
 	{
 		$this->stack[] = $Card;
 	}

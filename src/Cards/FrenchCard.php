@@ -1,7 +1,7 @@
 <?php
 namespace Cards;
 
-class FrenchCard extends Card {
+class FrenchCard {
 	// min. value for a Card.
 	const MIN_VALUE = 1;
 	// max. value for a Card.

@@ -16,9 +16,9 @@ Install with composer
 
 Setup namespaces
 ------------------------
-use Cards\Card;
-use Cards\CardStack;
-use Cards\Suit;
+- use Cards\FrenchCard as Card;
+- use Cards\CardStack;
+- use Cards\Suit;
 
 
 Card
