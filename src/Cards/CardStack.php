@@ -23,9 +23,8 @@ class CardStack implements StackManipulator {
 	public function __construct( array $cards = [] )
 	{
 		// throws \InvalidArgumentException 
-		if(is_array($cards) === false)
-			if(count($cards) === 0)
-				return [];
+		if(count($cards) === 0)
+			return [];
 
 		$this->validateIsArrayOfCards($cards);
 		$this->stack = $cards;
