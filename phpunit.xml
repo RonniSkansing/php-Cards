@@ -1,8 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit colors="true">
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="true"
+         syntaxCheck="false"
+         bootstrap="vendor/autoload.php"
+        >
     <testsuites>
         <testsuite name="Cards Test Suite">
             <directory>tests/</directory>
         </testsuite>
     </testsuites>
+
+        <!--
+        <log
+                type="coverage-html"
+                target="./test/coverage"
+                charset="UTF-8"
+                yui="true"
+                lowUpperBound="35"
+                highLowerBound="70"
+                showUncoveredFiles="true"
+                />
+        -->
 </phpunit>
