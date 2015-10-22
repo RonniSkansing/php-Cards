@@ -18,7 +18,7 @@ class CardStack implements StackManipulator {
     *
     *   @param array $cards
     */
-    public function __construct( array $cards = [] )
+    public function __construct(array $cards = [])
     {
         // throws \InvalidArgumentException
         if(count($cards) === 0) {
@@ -64,7 +64,7 @@ class CardStack implements StackManipulator {
     *   @throws \InvalidArgumentException
     *   @return void
     */
-    protected function validateIsArrayOfCards( $cards )
+    protected function validateIsArrayOfCards($cards)
     {
         foreach($cards as $Card) {
             if( $Card instanceof FrenchCard === false ) {
@@ -97,9 +97,9 @@ class CardStack implements StackManipulator {
     *   @param Card $Card
     *   @return void
     */
-    public function addOnTop( FrenchCard $Card )
+    public function addOnTop(FrenchCard $card)
     {
-        array_unshift($this->stack, $Card);
+        array_unshift($this->stack, $card);
     }
 
     /**
@@ -108,9 +108,9 @@ class CardStack implements StackManipulator {
     *   @param Card $Card
     *   @return void
     */
-    public function addToBottom( FrenchCard $Card )
+    public function addToBottom(FrenchCard $card)
     {
-        $this->stack[] = $Card;
+        $this->stack[] = $card;
     }
 
     /**
@@ -119,13 +119,13 @@ class CardStack implements StackManipulator {
     *   @param  CardStack
     *   @return bool
     */
-    public function addStackOnTop( StackManipulator $CardStack )
+    public function addStackOnTop(StackManipulator $cardStack)
     {
-        if( count($CardStack) === 0 ) {
+        if( count($cardStack) === 0 ) {
             return false;
         }
-        while( $Card = $CardStack->getBottom()) {
-            $this->addOnTop($Card);
+        while( $card = $cardStack->getBottom()) {
+            $this->addOnTop($card);
         }
 
         return true;
@@ -137,14 +137,14 @@ class CardStack implements StackManipulator {
     *   @param  CardStack
     *   @return bool
     */
-    public function addStackToBottom( StackManipulator $CardStack )
+    public function addStackToBottom(StackManipulator $cardStack)
     {
-        if( count($CardStack) === 0 ) {
+        if( count($cardStack) === 0 ) {
             return false;
         }
 
-        while( $Card = $CardStack->getTop()) {
-            $this->addToBottom($Card);
+        while( $card = $cardStack->getTop()) {
+            $this->addToBottom($card);
         }
 
         return true;
@@ -197,7 +197,7 @@ class CardStack implements StackManipulator {
     *   @throws InvalidArguementException
     *   @return CardStack
     */
-    public function getTopStack( $quantity )
+    public function getTopStack($quantity)
     {
         // throws \InvalidArgumentException
         $this->validateQuantity($quantity);
@@ -207,8 +207,8 @@ class CardStack implements StackManipulator {
         }
 
         $cards = [];
-        for($i = 1; $i <= $quantity && ( $Card = $this->getTop() ) !== null; ++$i) {
-            $cards[] = $Card;
+        for($i = 1; $i <= $quantity && ( $card = $this->getTop() ) !== null; ++$i) {
+            $cards[] = $card;
         }
 
         return new CardStack($cards);
@@ -235,7 +235,7 @@ class CardStack implements StackManipulator {
     *   @throws \InvalidArgumentException
     *   @return CardStack
     */
-    public function getBottomStack( $quantity )
+    public function getBottomStack($quantity)
     {
         // throws \InvalidArgumentException
         $this->validateQuantity($quantity);
@@ -245,8 +245,8 @@ class CardStack implements StackManipulator {
         }
 
         $cards = [];
-        for($i = 1; $i <= $quantity && ( $Card = $this->getBottom() ) !== null; ++$i) {
-            $cards[] = $Card;
+        for($i = 1; $i <= $quantity && ( $card = $this->getBottom() ) !== null; ++$i) {
+            $cards[] = $card;
         }
 
         return new CardStack($cards);
@@ -278,7 +278,7 @@ class CardStack implements StackManipulator {
     *   @param int  $offset
     *   @return Card|null       returns null if the offset is nonexistent.
     */
-    public function offsetGet( $offset )
+    public function offsetGet($offset)
     {
         if($this->offsetExists($offset) === false) {
             return null;
@@ -293,7 +293,7 @@ class CardStack implements StackManipulator {
     *   @param int  $offset
     *   @return bool
     */
-    public function offsetExists( $offset )
+    public function offsetExists($offset)
     {
         return isset($this->stack[$offset]);
     }
@@ -306,7 +306,7 @@ class CardStack implements StackManipulator {
     *   @param  int
     *   @return void
     */
-    public function offsetSet( $offset, $value )
+    public function offsetSet($offset, $value)
     {
         throw new \Exception('The Cards are readonly.');
     }
@@ -318,7 +318,7 @@ class CardStack implements StackManipulator {
     *   @param int $offset
     *   @return void
     */
-    public function offsetUnset( $offset )
+    public function offsetUnset($offset)
     {
         if($this->offsetExists($offset) === false) {
             return;
@@ -375,8 +375,8 @@ class CardStack implements StackManipulator {
         $count = $this->count();
         $larger_half = ( floor($count / 2) ) + ( $count % 2);
         $cards = [];
-        for($i = 1; $i <= $larger_half && ( $Card = $this->getTop() ) !== null; ++$i) {
-            $cards[] = $Card;
+        for($i = 1; $i <= $larger_half && ( $card = $this->getTop() ) !== null; ++$i) {
+            $cards[] = $card;
         }
 
         return new CardStack($cards);
