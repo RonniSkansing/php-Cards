@@ -35,10 +35,8 @@ class Suit {
     */
     protected function isValidSuit($suit)
     {
-        return (    $suit === self::CLUB
-                ||  $suit === self::DIAMOND
-                ||  $suit === self::HEART
-                ||  $suit === self::SPADE );
+		$validSuits = array(self::CLUB, self::DIAMOND, self::HEART, self::SPADE);
+		return in_array($suit, $validSuits, true);
     }
 
     /**

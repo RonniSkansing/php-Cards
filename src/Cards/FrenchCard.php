@@ -5,7 +5,7 @@ class FrenchCard {
     const MIN_VALUE = 1;
     const MAX_VALUE = 13;
 
-    protected $Suit;
+    protected $suit;
     protected $value;
 
     /**
@@ -14,12 +14,12 @@ class FrenchCard {
     *   @param  Suit
     *   @param  int
     */
-    public function __construct( Suit $Suit, $value)
+    public function __construct( Suit $suit, $value)
     {
         // throws InvalidArgumentException
         $this->isWithinValueRange($value);
 
-        $this->Suit = $Suit;
+        $this->suit = $suit;
         $this->value = $value;
     }
 
@@ -44,7 +44,7 @@ class FrenchCard {
     */
     public function getSuit()
     {
-        return $this->Suit->getSuit();
+        return $this->suit->getSuit();
     }
 
     /**
